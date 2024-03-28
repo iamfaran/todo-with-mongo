@@ -1,10 +1,9 @@
-import { AddTodoProps } from "@/utils/types";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-export const AddTodo = ({ task }: AddTodoProps) => {
+export const AddTodo = () => {
   const handleSubmitTodo = (e: FormEvent) => {
     e.preventDefault();
-    console.log("Task added: ", task);
+    console.log("Task added: ");
   };
 
   const handleChange = (e: ChangeEvent) => {
@@ -20,7 +19,6 @@ export const AddTodo = ({ task }: AddTodoProps) => {
         id="add-todo"
         type="text"
         name="task"
-        value={task}
         onChange={handleChange}
       />
       <button
