@@ -1,4 +1,5 @@
-export const Row = ({ todo: { id, task, isCompleted } }) => {
+import { Todo } from "@/utils/types";
+export const Row = ({ id, task, isCompleted }: Todo) => {
   return (
     <div className="shadow rounded-lg p-3 mt-4 bg-gray-50 dark:bg-slate-700 flex justify-between">
       <div className="flex items-center">

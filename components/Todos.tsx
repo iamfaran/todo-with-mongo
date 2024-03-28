@@ -1,5 +1,4 @@
 "use client";
-import React, { FormEvent, ChangeEvent, useState, use } from "react";
 import { useContext } from "react";
 import { TodoContext, TodoContextType } from "@/context/TodoProvider";
 import { Row } from "./Row";
@@ -8,9 +7,7 @@ import { AddTodo } from "./AddTodo";
 export const Todos = () => {
   console.log("Todos component rendered");
   const { state, dispatch } = useContext<TodoContextType | null>(TodoContext)!;
-
-  // initialize task state with an empty string
-  const [task, setTask] = useState<string>("");
+  const { todos } = state;
 
   return (
     <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -20,16 +17,7 @@ export const Todos = () => {
         </div>
         <AddTodo />
         <div className="h-80 overflow-x-hidden overflow-y-auto todo-list">
-          {/* {todos
-            .map((todo) => (
-              <Row
-                key={todo.id}
-                todo={todo}
-                handleDeleteTodo={handleDeleteTodo}
-                handleCheckTodo={handleCheckTodo}
-              />
-            ))
-            .reverse()} */}
+          {todos.map((todo) => <Row key={todo.id} {...todo} />).reverse()}
         </div>
       </div>
     </section>
