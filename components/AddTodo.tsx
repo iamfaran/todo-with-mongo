@@ -1,10 +1,17 @@
 import { AddTodoProps } from "@/utils/types";
+import { ChangeEvent, FormEvent, useState } from "react";
 
-export const AddTodo = ({
-  handleSubmitTodo,
-  task,
-  handleChange,
-}: AddTodoProps) => {
+export const AddTodo = ({ task }: AddTodoProps) => {
+  const handleSubmitTodo = (e: FormEvent) => {
+    e.preventDefault();
+    console.log("Task added: ", task);
+  };
+
+  const handleChange = (e: ChangeEvent) => {
+    const { value } = e.target as HTMLInputElement;
+    console.log("Task changed: ", value);
+  };
+
   return (
     <form onSubmit={handleSubmitTodo} className="flex">
       <input

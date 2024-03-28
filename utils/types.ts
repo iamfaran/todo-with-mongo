@@ -14,6 +14,4 @@ export type TodoProps = {
 
 export type AddTodoProps = {
   task: string;
-  handleSubmitTodo: (e: FormEvent) => void;
-  handleChange: (e: ChangeEvent) => void;
 };

@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useReducer } from "react";
 import { todoReducer } from "@/context/reducer";
 import { State, Action } from "@/context/reducer";
@@ -11,19 +12,18 @@ const initialState: State = {
   todos: data,
 };
 
-export const TodoContext = createContext<{
+export type TodoContextType = {
   state: State;
   dispatch: React.Dispatch<Action>;
-} | null>(null);
+};
+
+export const TodoContext = createContext<TodoContextType | null>(null);
 
 const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
-
-  return (
-    <TodoContext.Provider value={{ state, dispatch }}>
-      {children}
-    </TodoContext.Provider>
-  );
+  console.log("TodoProvider rendered");
+  const value: TodoContextType = { state, dispatch };
+  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 };
 
 export default TodoProvider;
