@@ -1,7 +1,10 @@
+import { Todos } from "@/components/Todos";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
+    <div className="bg-gray-100 dark:bg-slate-900 h-screen">
+      <Todos />
+    </div>
   );
 }
