@@ -1,17 +1,15 @@
-import { useReducer } from "react";
-import { data } from "@/utils/todos";
 import { Todo } from "@/utils/types";
 
-type State = {
+export type State = {
   todos: Todo[];
 };
 
-type Action = {
+export type Action = {
   type: "ADD_TODO" | "CHECK_TODO" | "DELETE_TODO";
   payload?: Todo;
 };
 
-const reducer = (state: State, action: Action): State => {
+export const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TODO":
       return {
