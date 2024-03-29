@@ -8,10 +8,19 @@ export const Row = (todo: Todo) => {
     dispatch({ type: "DELETE_TODO", payload: todo });
   };
 
+  const handleCheck = () => {
+    dispatch({ type: "CHECK_TODO", payload: todo });
+  };
+
   return (
     <div className="shadow rounded-lg p-3 mt-4 bg-gray-50 dark:bg-slate-700 flex justify-between">
       <div className="flex items-center">
-        <input id={"task-name-" + id} type="checkbox" checked={isCompleted} />
+        <input
+          id={"task-name-" + id}
+          type="checkbox"
+          onChange={handleCheck}
+          checked={isCompleted}
+        />
         <label
           className="ml-2 font-medium text-slate-800 dark:text-gray-50 text-sm"
           htmlFor={"task-name-" + id}

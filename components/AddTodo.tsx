@@ -1,14 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useRef } from "react";
+import { useTodoContext } from "@/hooks/useTodoContext";
+import { v4 as uuidv4 } from "uuid";
 
 export const AddTodo = () => {
+  const { dispatch } = useTodoContext();
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmitTodo = (e: FormEvent) => {
     e.preventDefault();
-    console.log("Task added: ");
-  };
-
-  const handleChange = (e: ChangeEvent) => {
-    const { value } = e.target as HTMLInputElement;
-    console.log("Task changed: ", value);
+    const task = inputRef.current?.value;
+    if (!task) return;
+    dispatch({
+      type: "ADD_TODO",
+      payload: { id: uuidv4(), task, isCompleted: false },
+    });
   };
 
   return (
@@ -19,7 +24,7 @@ export const AddTodo = () => {
         id="add-todo"
         type="text"
         name="task"
-        onChange={handleChange}
+        ref={inputRef}
       />
       <button
         type="submit"
