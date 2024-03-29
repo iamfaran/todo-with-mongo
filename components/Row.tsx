@@ -1,5 +1,13 @@
 import { Todo } from "@/utils/types";
-export const Row = ({ id, task, isCompleted }: Todo) => {
+import { useTodoContext } from "@/hooks/useTodoContext";
+
+export const Row = (todo: Todo) => {
+  const { state, dispatch } = useTodoContext();
+  const { id, task, isCompleted } = todo;
+  const handleDelete = () => {
+    dispatch({ type: "DELETE_TODO", payload: todo });
+  };
+
   return (
     <div className="shadow rounded-lg p-3 mt-4 bg-gray-50 dark:bg-slate-700 flex justify-between">
       <div className="flex items-center">
@@ -15,6 +23,7 @@ export const Row = ({ id, task, isCompleted }: Todo) => {
         <button
           className="bg-violet-500 hover:bg-violet-600 focus:outline-none focus:ring focus:ring-violet-300 active:bg-violet-700 px-2 py-1 text-sm leading-5 rounded-full font-semibold text-white"
           aria-label="Delete a todo"
+          onClick={handleDelete}
         >
           X
         </button>

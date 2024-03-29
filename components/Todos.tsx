@@ -1,14 +1,13 @@
 "use client";
 import { useContext } from "react";
-import { TodoContext, TodoContextType } from "@/context/TodoProvider";
+import { useTodoContext } from "@/hooks/useTodoContext";
 import { Row } from "./Row";
 import { AddTodo } from "./AddTodo";
 
 export const Todos = () => {
   console.log("Todos component rendered");
-  const { state, dispatch } = useContext<TodoContextType | null>(TodoContext)!;
+  const { state, dispatch } = useTodoContext();
   const { todos } = state;
-
   return (
     <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full p-3 bg-white dark:bg-slate-800 shadow overflow-hidden sm:rounded-lg space-y-8">
