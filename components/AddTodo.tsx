@@ -14,6 +14,7 @@ export const AddTodo = () => {
       type: "ADD_TODO",
       payload: { id: uuidv4(), task, isCompleted: false },
     });
+    inputRef.current!.value = "";
   };
 
   return (
