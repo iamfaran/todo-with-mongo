@@ -9,6 +9,7 @@ export async function GET(request: Request) {
 
   // Fetch all todos
   const todos = await Todo.find();
+  console.log(todos);
 
   // Return Response
   return new Response(JSON.stringify(todos), {
