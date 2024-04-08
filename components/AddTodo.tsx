@@ -12,7 +12,7 @@ export const AddTodo = () => {
     if (!task) return;
     dispatch({
       type: "ADD_TODO",
-      payload: { id: uuidv4(), task, isCompleted: false },
+      payload: { _id: uuidv4(), task, isCompleted: false },
     });
     inputRef.current!.value = "";
   };
