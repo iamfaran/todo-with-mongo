@@ -1,7 +1,8 @@
 "use client";
 import { createContext, useReducer } from "react";
 import { todoReducer } from "@/context/reducer";
-import { State, Action } from "@/context/reducer";
+import { State } from "@/context/reducer";
+import { Action } from "@/context/actions";
 
 type TodoProviderProps = {
   children: React.ReactNode;
