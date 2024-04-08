@@ -3,27 +3,27 @@ import { useTodoContext } from "@/hooks/useTodoContext";
 
 export const Row = (todo: Todo) => {
   const { state, dispatch } = useTodoContext();
-  const { id, task, isCompleted } = todo;
+  const { _id, task, isCompleted } = todo;
   const handleDelete = () => {
-    dispatch({ type: "DELETE_TODO", payload: todo });
+    dispatch({ type: "DELETE_TODO", payload: _id });
   };
 
   const handleCheck = () => {
-    dispatch({ type: "CHECK_TODO", payload: todo });
+    dispatch({ type: "CHECK_TODO", payload: _id });
   };
 
   return (
     <div className="shadow rounded-lg p-3 mt-4 bg-gray-50 dark:bg-slate-700 flex justify-between">
       <div className="flex items-center">
         <input
-          id={"task-name-" + id}
+          id={"task-name-" + _id}
           type="checkbox"
           onChange={handleCheck}
           checked={isCompleted}
         />
         <label
           className="ml-2 font-medium text-slate-800 dark:text-gray-50 text-sm"
-          htmlFor={"task-name-" + id}
+          htmlFor={"task-name-" + _id}
         >
           {task}
         </label>
