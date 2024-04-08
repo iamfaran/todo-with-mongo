@@ -15,7 +15,7 @@ export const Todos = () => {
         </div>
         <AddTodo />
         <div className="h-80 overflow-x-hidden overflow-y-auto todo-list">
-          {todos.map((todo) => <Row key={todo.id} {...todo} />).reverse()}
+          {todos.map((todo) => <Row key={todo._id} {...todo} />).reverse()}
         </div>
       </div>
     </section>

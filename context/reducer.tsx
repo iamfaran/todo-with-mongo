@@ -18,14 +18,14 @@ export const todoReducer = (state: State, action: Action): State => {
     case "CHECK_TODO":
       return {
         todos: state.todos.map((todo) =>
-          todo.id === action.payload!.id
+          todo._id === action.payload!._id
             ? { ...todo, isCompleted: !todo.isCompleted }
             : todo
         ),
       };
     case "DELETE_TODO":
       return {
-        todos: state.todos.filter((todo) => todo.id !== action.payload!.id),
+        todos: state.todos.filter((todo) => todo._id !== action.payload!._id),
       };
     default:
       return state;

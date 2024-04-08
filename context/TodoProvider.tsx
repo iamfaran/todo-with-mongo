@@ -2,14 +2,13 @@
 import { createContext, useReducer } from "react";
 import { todoReducer } from "@/context/reducer";
 import { State, Action } from "@/context/reducer";
-import { data } from "@/utils/todos";
 
 type TodoProviderProps = {
   children: React.ReactNode;
 };
 
 const initialState: State = {
-  todos: data,
+  todos: [],
 };
 
 export type TodoContextType = {
