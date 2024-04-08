@@ -5,12 +5,16 @@ export type State = {
 };
 
 export type Action = {
-  type: "ADD_TODO" | "CHECK_TODO" | "DELETE_TODO";
+  type: "SET_TODOS" | "ADD_TODO" | "CHECK_TODO" | "DELETE_TODO";
   payload?: Todo;
 };
 
 export const todoReducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case "SET_TODOS":
+      return {
+        todos: [],
+      };
     case "ADD_TODO":
       return {
         todos: [...state.todos, action.payload!],
