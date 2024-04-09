@@ -6,15 +6,23 @@ export const AddTodo = () => {
   const { dispatch } = useTodoContext();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmitTodo = (e: FormEvent) => {
+  const handleSubmitTodo = async (e: FormEvent) => {
     e.preventDefault();
     const task = inputRef.current?.value;
     if (!task) return;
-    dispatch({
-      type: "ADD_TODO",
-      payload: { _id: uuidv4(), task, isCompleted: false },
+
+    // Make a POST request to add the new todo
+    const response = await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ task, isCompleted: false }),
     });
-    inputRef.current!.value = "";
+
+    const newTodo = await response.json();
+    dispatch({ type: "ADD_TODO", payload: newTodo });
+    inputRef.current.value = "";
   };
 
   return (
