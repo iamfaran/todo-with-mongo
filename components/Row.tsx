@@ -2,12 +2,29 @@ import { Todo } from "@/utils/types";
 import { useTodoContext } from "@/hooks/useTodoContext";
 
 export const Row = (todo: Todo) => {
-  const { state, dispatch } = useTodoContext();
+  const { dispatch } = useTodoContext();
   const { _id, task, isCompleted } = todo;
-  const handleDelete = () => {
-    dispatch({ type: "DELETE_TODO", payload: _id });
-  };
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/todos`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: _id }),
+      });
 
+      if (!response.ok) {
+        throw new Error("Todo deletion failed");
+      }
+      console.log("Todo deleted successfully", response);
+      // Handle success (e.g., update UI if needed)
+      dispatch({ type: "DELETE_TODO", payload: _id });
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      // Handle error (display error message to the user)
+    }
+  };
   const handleCheck = () => {
     dispatch({ type: "CHECK_TODO", payload: _id });
   };
