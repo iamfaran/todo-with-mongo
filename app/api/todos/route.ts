@@ -30,3 +30,36 @@ export async function POST(request: Request) {
     status: 201,
   });
 }
+
+// DELETE /api/todos
+
+export async function DELETE(request: Request) {
+  try {
+    // Connect to the database
+    await connectDB();
+
+    // Get the id from the request body
+    const { id } = await request.json();
+
+    // Delete the todo with the given id
+    const result = await Todo.findByIdAndDelete(id);
+
+    // If no todo was found with the given id, throw an error
+    if (!result) {
+      throw new Error("Todo not found");
+    }
+
+    // Return a 200 status and a success message
+    return new Response(
+      JSON.stringify({ message: "Todo Deleted successfully" }),
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    // Return a 500 status and the error message
+    return new Response(JSON.stringify({ message: "Failed to delete Todo" }), {
+      status: 500,
+    });
+  }
+}
