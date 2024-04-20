@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import TodoProvider from "@/context/TodoProvider";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,10 +19,12 @@ export default function RootLayout({
   console.log("RootLayout");
 
   return (
-    <TodoProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </TodoProvider>
+    <AuthProvider>
+      <TodoProvider>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </TodoProvider>
+    </AuthProvider>
   );
 }
