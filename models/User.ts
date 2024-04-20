@@ -11,11 +11,12 @@ const userSchema = new Schema({
     required: [true, "Email is required"],
     unique: [true, "Email is already registered"],
   },
-  password: {
-    // consider using hashed password for security
+  googleId: {
     type: String,
-    required: true,
+    unique: true,
+    sparse: true, // This makes the unique index only consider the documents where the field exists
   },
+  profilePicture: String,
   todos: [
     {
       type: Schema.Types.ObjectId,
