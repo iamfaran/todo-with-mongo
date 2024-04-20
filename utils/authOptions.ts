@@ -25,11 +25,17 @@ export const authOptions: AuthOptions = {
       // 1. Connect to the database
       await connectDB();
 
-      console.log(profile);
-
       // 2. Check if the user is already registered
+      const user = await User.findOne({ email: profile?.email });
 
       // 3. If the user is not registered, register the user
+      if (!user) {
+        await User.create({
+          username: profile?.name,
+          email: profile?.email,
+          profilePicture: profile?.image,
+        });
+      }
 
       // 4. Return true to allow sign in
       return true;
