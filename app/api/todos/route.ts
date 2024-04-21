@@ -5,20 +5,39 @@ import { getSessionUser } from "@/utils/getSessionUser";
 // GET /api/todos
 
 export async function GET(request: Request) {
-  // Connect to the database
-  await connectDB();
+  try {
+    // Connect to the database
+    await connectDB();
 
-  const testSession = await getSessionUser();
-  console.log(" testSession: ", testSession);
+    // Get current user session id from get session user
+    const sessionUser = await getSessionUser();
 
-  // Fetch all todos
-  const todos = await Todo.find();
-  console.log(todos);
+    if (!sessionUser) {
+      return new Response(JSON.stringify({ message: "Not Authenticated" }), {
+        status: 401,
+      });
+    }
 
-  // Return Response
-  return new Response(JSON.stringify(todos), {
-    status: 200,
-  });
+    const sessionUserId = (sessionUser?.user as any).id;
+    console.log("sessionUser", sessionUserId);
+
+    // Fetch all todos for the current user
+    const todos = await Todo.find({ user: sessionUserId });
+    console.log(todos);
+
+    // Return Response
+    return new Response(JSON.stringify(todos), {
+      status: 200,
+    });
+  } catch (error) {
+    // Log the error for debugging
+    console.error(error);
+
+    // Return a 500 status and the error message
+    return new Response(JSON.stringify({ message: "Failed to fetch todos" }), {
+      status: 500,
+    });
+  }
 }
 
 // POST /api/todos
@@ -29,8 +48,8 @@ export async function POST(request: Request) {
   // get current user session id from get session user
 
   const sessionUser = await getSessionUser();
-  const sessionUserId = (sessionUser?.user as any)._id;
-
+  const sessionUserId = (sessionUser?.user as any).id;
+  console.log("sessionUser", sessionUserId);
   const newTodoData = await request.json();
   const newTodo = new Todo({
     ...newTodoData,
