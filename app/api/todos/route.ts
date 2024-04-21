@@ -26,8 +26,16 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   // Connect to the database
   await connectDB();
+  // get current user session id from get session user
+
+  const sessionUser = await getSessionUser();
+  const sessionUserId = (sessionUser?.user as any)._id;
+
   const newTodoData = await request.json();
-  const newTodo = new Todo(newTodoData);
+  const newTodo = new Todo({
+    ...newTodoData,
+    user: sessionUserId,
+  });
   await newTodo.save();
   // return Response with the new todo
   return new Response(JSON.stringify(newTodo), {
