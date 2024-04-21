@@ -42,7 +42,16 @@ export const authOptions: AuthOptions = {
     },
     async session({ session }) {
       const user = await User.findOne({ email: session.user?.email });
-      return session;
+      const sessionUser = {
+        ...session,
+        user: {
+          email: user.email,
+          name: user.username,
+          image: user.profilePicture,
+          id: user._id.toString(),
+        },
+      };
+      return sessionUser;
     },
   },
 };
