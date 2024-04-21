@@ -1,11 +1,15 @@
 import connectDB from "@/config/database";
 import Todo from "@/models/Todo";
+import { getSessionUser } from "@/utils/getSessionUser";
 
 // GET /api/todos
 
 export async function GET(request: Request) {
   // Connect to the database
   await connectDB();
+
+  const testSession = await getSessionUser();
+  console.log(" testSession: ", testSession);
 
   // Fetch all todos
   const todos = await Todo.find();

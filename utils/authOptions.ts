@@ -40,5 +40,9 @@ export const authOptions: AuthOptions = {
       // 4. Return true to allow sign in
       return true;
     },
+    async session({ session }) {
+      const user = await User.findOne({ email: session.user?.email });
+      return session;
+    },
   },
 };
