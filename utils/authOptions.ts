@@ -51,6 +51,8 @@ export const authOptions: AuthOptions = {
           id: user._id.toString(),
         },
       };
+
+      console.log("SESSION FOR USER", sessionUser);
       return sessionUser;
     },
   },
