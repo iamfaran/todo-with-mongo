@@ -2,16 +2,30 @@
 import { useTodoContext } from "@/hooks/useTodoContext";
 import { Row } from "./Row";
 import { AddTodo } from "./AddTodo";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export const Todos = () => {
   console.log("Todos component rendered");
   const { state } = useTodoContext();
   const { todos } = state;
+  const { data: session } = useSession();
+  console.log("session", session);
+
   return (
     <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full p-3 bg-white dark:bg-slate-800 shadow overflow-hidden sm:rounded-lg space-y-8">
         <div className="flex justify-between">
           <h1 className="font-medium dark:text-white">Todo App</h1>
+
+          {/* Image of Current signed in user */}
+          <div></div>
+
+          {/* End */}
+
+          {/* Little log out Icon */}
+
+          {/* Ends */}
         </div>
         <AddTodo />
         <div className="h-80 overflow-x-hidden overflow-y-auto todo-list">
