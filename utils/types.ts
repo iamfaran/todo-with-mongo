@@ -5,3 +5,9 @@ export type Todo = {
   task: string;
   isCompleted: boolean;
 };
+
+export type UserProfile = {
+  email: string;
+  name: string;
+  picture: string;
+};

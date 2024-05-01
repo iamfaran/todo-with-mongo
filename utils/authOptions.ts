@@ -1,8 +1,12 @@
 import connectDB from "@/config/database";
 import User from "@/models/User";
-import { AuthOptions } from "next-auth";
+import { AuthOptions, Profile } from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
+
+interface UserProfile extends Profile {
+  picture?: string;
+}
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -19,24 +23,21 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ profile }) {
+    async signIn({ profile }: { profile?: UserProfile }) {
+      console.log("SIGN IN CALLBACK", profile);
       // This function is called when the user signs in
-
       // 1. Connect to the database
       await connectDB();
-
       // 2. Check if the user is already registered
       const user = await User.findOne({ email: profile?.email });
-
       // 3. If the user is not registered, register the user
       if (!user) {
         await User.create({
           username: profile?.name,
           email: profile?.email,
-          profilePicture: profile?.image,
+          profilePicture: profile?.picture,
         });
       }
-
       // 4. Return true to allow sign in
       return true;
     },
