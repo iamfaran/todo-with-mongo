@@ -1,3 +1,4 @@
+import { Profile } from "next-auth";
 // TODO type
 
 export type Todo = {
@@ -6,8 +7,6 @@ export type Todo = {
   isCompleted: boolean;
 };
 
-export type UserProfile = {
-  email: string;
-  name: string;
-  picture: string;
-};
+export interface UserProfile extends Profile {
+  picture?: string;
+}
