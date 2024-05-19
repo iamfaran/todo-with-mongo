@@ -4,6 +4,7 @@ import "./globals.css";
 import TodoProvider from "@/context/TodoProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import ThemeProvider from "@/context/Theme/ThemeProvider";
+import SunMoon from "@/components/SunMoon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,10 @@ export default function RootLayout({
       <ThemeProvider>
         <TodoProvider>
           <html lang="en">
-            <body className={inter.className}>{children}</body>
+            <body className={`${inter.className} relative`}>
+              <SunMoon />
+              {children}
+            </body>
           </html>
         </TodoProvider>
       </ThemeProvider>
