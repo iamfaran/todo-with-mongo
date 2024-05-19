@@ -33,6 +33,7 @@ export const authOptions: AuthOptions = {
           username: profile?.name,
           email: profile?.email,
           profilePicture: profile?.picture,
+          darkMode: false,
         });
       }
       // 4. Return true to allow sign in
@@ -47,6 +48,7 @@ export const authOptions: AuthOptions = {
           name: user.username,
           image: user.profilePicture,
           id: user._id.toString(),
+          darkMode: user.darkMode,
         },
       };
 

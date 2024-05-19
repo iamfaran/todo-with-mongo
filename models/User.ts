@@ -23,6 +23,10 @@ const userSchema = new Schema({
       ref: "Todo",
     },
   ],
+  darkMode: {
+    type: Boolean,
+    default: false, // Default theme is light
+  },
 });
 
 const User = models.User || model("User", userSchema);
