@@ -1,10 +1,10 @@
 import { Todos } from "@/components/Todos";
-import Image from "next/image";
+import SunMoon from "@/components/SunMoon";
 
 export default function TodosPage() {
-  console.log("Home");
   return (
-    <div className="bg-gray-100 dark:bg-slate-900 h-screen">
+    <div className="bg-gray-100 dark:bg-slate-900 h-screen relative">
+      <SunMoon />
       <Todos />
     </div>
   );
