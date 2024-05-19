@@ -21,6 +21,7 @@ export type TodoContextType = {
 export const TodoContext = createContext<TodoContextType | null>(null);
 
 const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
+  console.log("TodoProvider");
   const [state, dispatch] = useReducer(todoReducer, initialState);
   useEffect(() => {
     const fetchTodos = async () => {

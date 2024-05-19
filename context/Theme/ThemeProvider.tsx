@@ -1,3 +1,4 @@
+"use client";
 import { createContext, PropsWithChildren, useReducer } from "react";
 
 import {

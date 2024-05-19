@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import TodoProvider from "@/context/TodoProvider";
 import { AuthProvider } from "@/components/AuthProvider";
+import ThemeProvider from "@/context/Theme/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,13 @@ export default function RootLayout({
 
   return (
     <AuthProvider>
-      <TodoProvider>
-        <html lang="en">
-          <body className={inter.className}>{children}</body>
-        </html>
-      </TodoProvider>
+      <ThemeProvider>
+        <TodoProvider>
+          <html lang="en">
+            <body className={inter.className}>{children}</body>
+          </html>
+        </TodoProvider>
+      </ThemeProvider>
     </AuthProvider>
   );
 }
