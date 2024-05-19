@@ -1,5 +1,5 @@
 "use client";
-import { createContext, PropsWithChildren, useReducer } from "react";
+import { createContext, PropsWithChildren, useReducer, useEffect } from "react";
 
 import {
   themeReducer,
@@ -20,9 +20,13 @@ export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const [state, dispatch] = useReducer(themeReducer, initialState);
-  console.log("ThemeProvider");
-
-  console.log("Theme State", state);
+  useEffect(() => {
+    if (state.darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [state.darkMode]);
 
   const value: ThemeContextType = { state, dispatch };
 

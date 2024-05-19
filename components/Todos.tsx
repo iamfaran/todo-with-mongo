@@ -19,7 +19,9 @@ export const Todos = () => {
     <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full p-3 bg-white dark:bg-slate-800 shadow overflow-hidden sm:rounded-lg space-y-8">
         <div className="flex justify-between items-center">
-          <h1 className="font-medium dark:text-white">Todo App</h1>
+          <h1 className="font-medium text-slate-900 dark:text-white">
+            Todo App
+          </h1>
 
           {/* Image of Current signed in user */}
           <div className="flex items-center gap-2">
@@ -42,7 +44,7 @@ export const Todos = () => {
               >
                 <span>
                   <CiLogout
-                    className="text-2xl text-zinc-50"
+                    className="text-2xl text-slate-900 dark:text-zinc-50"
                     title="Sign Out"
                     aria-label="Sign Out"
                   />

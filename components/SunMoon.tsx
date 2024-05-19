@@ -19,7 +19,7 @@ function SunMoon() {
       {state.darkMode ? (
         <MdLightMode className="text-4xl" />
       ) : (
-        <MdDarkMode className="text-4xl" />
+        <MdDarkMode className="text-4xl text-slate-900" />
       )}
     </div>
   );
