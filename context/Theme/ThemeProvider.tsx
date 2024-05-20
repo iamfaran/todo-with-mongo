@@ -1,5 +1,6 @@
 "use client";
 import { createContext, PropsWithChildren, useReducer, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 import {
   themeReducer,
@@ -19,6 +20,14 @@ const initialState: ThemeState = {
 export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
+  const { data: session } = useSession();
+  console.log("THEME PROVIDER SESSION", session);
+  // If session is available
+  // get the theme from the user object and set it as the initial state
+  if (session) {
+    initialState.darkMode = session.user?.darkMode;
+  }
+
   const [state, dispatch] = useReducer(themeReducer, initialState);
   useEffect(() => {
     if (state.darkMode) {
