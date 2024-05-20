@@ -25,8 +25,26 @@ export const Row = (todo: Todo) => {
       // Handle error (display error message to the user)
     }
   };
-  const handleCheck = () => {
-    dispatch({ type: "CHECK_TODO", payload: _id });
+  const handleCheck = async () => {
+    // dispatch({ type: "CHECK_TODO", payload: _id });
+    try {
+      const response = await fetch(`/api/todos`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: _id, isCompleted: !isCompleted }), // Pass both id and new isCompleted
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update todo status");
+      }
+
+      dispatch({ type: "CHECK_TODO", payload: _id });
+    } catch (error) {
+      console.error("Error updating todo:", error);
+      // (Optional) Display an error message to the user
+    }
   };
 
   return (
