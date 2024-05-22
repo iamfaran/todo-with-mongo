@@ -3,6 +3,7 @@ import { Action } from "@/context/actions";
 
 export type State = {
   todos: Todo[];
+  loading?: boolean;
 };
 
 export const todoReducer = (state: State, action: Action): State => {
@@ -10,6 +11,7 @@ export const todoReducer = (state: State, action: Action): State => {
     case "SET_TODOS":
       return {
         todos: action.payload!,
+        loading: false,
       };
     case "ADD_TODO":
       return {
@@ -26,6 +28,12 @@ export const todoReducer = (state: State, action: Action): State => {
     case "DELETE_TODO":
       return {
         todos: state.todos.filter((todo) => todo._id !== action.payload!),
+      };
+
+    case "LOADING":
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;

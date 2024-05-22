@@ -11,6 +11,7 @@ type TodoProviderProps = {
 
 const initialState: State = {
   todos: [],
+  loading: true,
 };
 
 export type TodoContextType = {
@@ -23,10 +24,14 @@ export const TodoContext = createContext<TodoContextType | null>(null);
 const TodoProvider: React.FC<TodoProviderProps> = ({ children }) => {
   console.log("TodoProvider");
   const [state, dispatch] = useReducer(todoReducer, initialState);
+  console.log("state", state);
   useEffect(() => {
     const fetchTodos = async () => {
+      // SHOW LOADER FIRST
+      dispatch({ type: "LOADING" });
       const response = await fetch("api/todos");
       const data: Todo[] = await response.json();
+      // Remove loader after fetching data
       dispatch({ type: "SET_TODOS", payload: data });
     };
 

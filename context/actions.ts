@@ -19,8 +19,13 @@ export type DeleteTodoAction = {
   payload: string; // assuming payload is the id of the todo
 };
 
+export type LoadingAction = {
+  type: "LOADING";
+};
+
 export type Action =
   | SetTodosAction
   | AddTodoAction
   | CheckTodoAction
-  | DeleteTodoAction;
+  | DeleteTodoAction
+  | LoadingAction;

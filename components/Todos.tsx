@@ -7,13 +7,15 @@ import Image from "next/image";
 import { FaUserAlt } from "react-icons/fa";
 import { signOut } from "next-auth/react";
 import { CiLogout } from "react-icons/ci";
+import { CircleLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 
 export const Todos = () => {
   console.log("Todos component rendered");
   const { state } = useTodoContext();
-  const { todos } = state;
+  const { todos, loading } = state;
   const { data: session } = useSession();
-  console.log("session", session);
+  console.log("LOADING: ", loading);
 
   return (
     <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -60,7 +62,13 @@ export const Todos = () => {
           {/* Ends */}
         </div>
         <AddTodo />
-        <div className="h-80 overflow-x-hidden overflow-y-auto todo-list">
+
+        <div className="h-80 !mt-0 overflow-x-hidden overflow-y-auto todo-list relative">
+          {loading && (
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <ClipLoader color="#3B82F6" />
+            </div>
+          )}
           {todos.map((todo) => <Row key={todo._id} {...todo} />).reverse()}
         </div>
       </div>
