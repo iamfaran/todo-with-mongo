@@ -6,6 +6,7 @@ export const Row = (todo: Todo) => {
   const { dispatch } = useTodoContext();
   const { _id, task, isCompleted } = todo;
   const handleDelete = async () => {
+    dispatch({ type: "DELETE_TODO", payload: _id });
     try {
       const response = await fetch(`/api/todos`, {
         method: "DELETE",
@@ -18,11 +19,13 @@ export const Row = (todo: Todo) => {
       if (!response.ok) {
         throw new Error("Todo deletion failed");
       }
+
+      toast.success("Todo deleted successfully", { autoClose: 2000 });
       console.log("Todo deleted successfully", response);
       // Handle success (e.g., update UI if needed)
-      dispatch({ type: "DELETE_TODO", payload: _id });
     } catch (error) {
       console.error("Error deleting todo:", error);
+      toast.error("Error deleting todo", { autoClose: 2000 });
       // Handle error (display error message to the user)
     }
   };
