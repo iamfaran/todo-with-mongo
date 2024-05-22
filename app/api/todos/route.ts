@@ -1,5 +1,5 @@
 import connectDB from "@/config/database";
-import Todo from "@/models/Todo";
+import Todo from "@/models/todo";
 import { getSessionUser } from "@/utils/getSessionUser";
 
 // GET /api/todos
