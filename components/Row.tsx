@@ -1,5 +1,6 @@
 import { Todo } from "@/utils/types";
 import { useTodoContext } from "@/hooks/useTodoContext";
+import { toast } from "react-toastify";
 
 export const Row = (todo: Todo) => {
   const { dispatch } = useTodoContext();
@@ -26,7 +27,7 @@ export const Row = (todo: Todo) => {
     }
   };
   const handleCheck = async () => {
-    // dispatch({ type: "CHECK_TODO", payload: _id });
+    dispatch({ type: "CHECK_TODO", payload: _id });
     try {
       const response = await fetch(`/api/todos`, {
         method: "PATCH",
@@ -40,9 +41,11 @@ export const Row = (todo: Todo) => {
         throw new Error("Failed to update todo status");
       }
 
-      dispatch({ type: "CHECK_TODO", payload: _id });
+      toast.success("Todo updated successfully", { autoClose: 2000 });
     } catch (error) {
       console.error("Error updating todo:", error);
+
+      toast.error("Error updating todo", { autoClose: 2000 });
       // (Optional) Display an error message to the user
     }
   };
