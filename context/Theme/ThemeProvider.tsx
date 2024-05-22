@@ -17,6 +17,13 @@ const initialState: ThemeState = {
   darkMode: false,
 };
 
+interface CustomUser {
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  darkMode?: boolean; // Add darkMode here
+}
+
 export const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
@@ -25,7 +32,7 @@ const ThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   // If session is available
   // get the theme from the user object and set it as the initial state
   if (session) {
-    initialState.darkMode = session.user?.darkMode;
+    initialState.darkMode = (session.user as CustomUser)?.darkMode ?? false;
   }
 
   const [state, dispatch] = useReducer(themeReducer, initialState);
