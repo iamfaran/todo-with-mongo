@@ -3,6 +3,8 @@ import React from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 import useTheme from "@/hooks/useThemeContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SunMoon() {
   const { state, dispatch } = useTheme();
@@ -11,6 +13,7 @@ function SunMoon() {
   // else show the moon icon
 
   const themeToggle = async () => {
+    dispatch({ type: "TOGGLE_THEME" });
     try {
       const response = await fetch("/api/theme", {
         method: "PUT",
@@ -18,14 +21,12 @@ function SunMoon() {
         body: JSON.stringify({ darkMode: !state.darkMode }),
       });
 
-      if (response.ok) {
-        dispatch({ type: "TOGGLE_THEME" });
-      } else {
-        console.error("Error updating theme on server:", response.statusText);
-        // (Optional) Show error feedback to the user
+      if (!response.ok) {
+        throw new Error("Error updating theme");
       }
+      toast.success("Theme saved", { autoClose: 2000 });
     } catch (error) {
-      console.error("Error updating theme:", error);
+      toast.error("Error saving theme", { autoClose: 2000 });
       // (Optional) Show error feedback to the user
     }
   };
