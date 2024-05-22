@@ -25,10 +25,7 @@ export default function RootLayout({
       <ThemeProvider>
         <TodoProvider>
           <html lang="en">
-            <body className={`${inter.className} relative`}>
-              <SunMoon />
-              {children}
-            </body>
+            <body className={`${inter.className} relative`}>{children}</body>
           </html>
         </TodoProvider>
       </ThemeProvider>

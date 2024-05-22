@@ -21,11 +21,9 @@ const SignIn = () => {
   }
 
   return (
-    <div className="bg-gray-100 dark:bg-slate-900 h-screen flex justify-center items-center">
+    <div className="bg-slate-900 h-screen flex justify-center items-center">
       <main className="flex flex-col justify-center items-center">
-        <h1 className="text-slate-900 text-center text-xl mb-3 dark:text-white">
-          Todos App
-        </h1>
+        <h1 className="text-center text-xl mb-3 text-white">Todos App</h1>
         <SignInGoogle />
       </main>
     </div>
