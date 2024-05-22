@@ -18,7 +18,7 @@ export const Todos = () => {
   console.log("LOADING: ", loading);
 
   return (
-    <section className="h-screen flex items-center flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <section className="h-screen px-3 flex items-center flex-col justify-center">
       <div className="max-w-md w-full p-3 bg-white dark:bg-slate-800 shadow overflow-hidden sm:rounded-lg space-y-8">
         <div className="flex justify-between items-center">
           <h1 className="font-medium text-slate-900 dark:text-white">
