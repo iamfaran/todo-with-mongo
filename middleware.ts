@@ -19,4 +19,7 @@ export async function middleware(req: NextRequest) {
   if (pathname === "/" && isAuthorized) {
     return NextResponse.redirect(new URL("/todos", req.url));
   }
+  if (pathname === "/todos" && !isAuthorized) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 }
