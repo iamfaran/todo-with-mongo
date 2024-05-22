@@ -1,7 +1,6 @@
 import { FormEvent, useRef } from "react";
 import { useTodoContext } from "@/hooks/useTodoContext";
-import { v4 as uuidv4 } from "uuid";
-
+import { toast } from "react-toastify";
 export const AddTodo = () => {
   const { dispatch } = useTodoContext();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -11,18 +10,26 @@ export const AddTodo = () => {
     const task = inputRef.current?.value;
     if (!task) return;
 
-    // Make a POST request to add the new todo
-    const response = await fetch("/api/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ task, isCompleted: false }),
-    });
+    try {
+      const response = await fetch("/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ task, isCompleted: false }),
+      });
 
-    const newTodo = await response.json();
-    dispatch({ type: "ADD_TODO", payload: newTodo });
-    inputRef.current.value = "";
+      if (!response.ok) {
+        throw new Error("Failed to add todo"); // Throw an error to be caught in the catch block
+      }
+      toast.success("Todo added successfully", { autoClose: 2000 }); // Display a success message in the toast
+      const newTodo = await response.json();
+      dispatch({ type: "ADD_TODO", payload: newTodo });
+    } catch (error) {
+      // Handle errors here, e.g., show a toast notification
+      toast.error("Error adding todo", { autoClose: 2000 }); // Display the error message in the toast
+    }
+    inputRef.current.value = ""; // Clear the input field after adding the todo
   };
 
   return (
